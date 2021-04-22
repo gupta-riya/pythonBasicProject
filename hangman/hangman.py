@@ -29,9 +29,11 @@ def hangman():
 
     #take user input
 
-    while len(word_letters) > 0:
+    lives = 6
+
+    while len(word_letters) > 0 and lives > 0:
         #letters already used
-        print("Letters already guessed : ", ' '.join(used_letter))
+        print('You have ', lives,' lives left and you have used these letters : ', " ".join(used_letter))
 
         #what current word is (ie W-R-)
         word_list = [letter if letter in used_letter else '-' for letter in word]
@@ -42,13 +44,25 @@ def hangman():
             used_letter.add(user_letter)
             if user_letter in word_letters:
                 word_letters.remove(user_letter)
-                print("Letter guessed correctly!!!")
+
+            else:
+                lives = lives - 1       # take away one live if the answer is wrong
+                print("Letter is wrong")
 
         elif user_letter in used_letter:
             print("Letter already used!!! ")
 
         else:
             print("Invalid character!!!")
+
+    #reaches when word is predicted or lives ended
+    if lives==0:
+        if len(word_letters) > 0:
+            print("You died, sorry. The word was ",word)
+        else:
+            print("You guessed the word,",word)
+    else:
+        print("You guessed the word,", word)
 
 
 
