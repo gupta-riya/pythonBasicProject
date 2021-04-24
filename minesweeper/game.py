@@ -82,8 +82,8 @@ class Board:
 
         num_neighbouring_bombs = 0
         # to control bounds we can have min(for right side) and max(for left side)
-        for r in range(max(0,row-1),min(self.dim_size-1,(row+1)+1)):
-            for c in range(max(0,col-1),min(self.dim_size-1,(col+1)+1)):
+        for r in range(max(0,row-1),min(self.dim_size-1,row+1)+1):
+            for c in range(max(0,col-1),min(self.dim_size-1,col+1)+1):
                 if r == row and c == col:
                     # our original location, don't check
                     continue
@@ -109,8 +109,8 @@ class Board:
             return True
 
         # self.board[row][col] == 0
-        for r in range(max(0,row-1),min(self.dim_size-1,(row+1)+1)):
-            for c in range(max(0,col-1),min(self.dim_size-1,(col+1)+1)):
+        for r in range(max(0,row-1),min(self.dim_size-1,row+1)+1):
+            for c in range(max(0,col-1),min(self.dim_size-1,col+1)+1):
                 if (r, c) in self.dug:
                     continue            # don't dig where you've already dug
                 self.dig(r, c)
@@ -193,8 +193,8 @@ def play(dim_size = 10, num_bombs=10):
         user_input = re.split(',(\\s)*',input("Where would you like to dig? Input as row,col: "))     # '0,3'
         row,col = int(user_input[0]),int(user_input[-1])
         if row < 0 or row >= board.dim_size or col < 0 or col >=  dim_size:
-            print("Invalid loaction. Try again.")
-
+            print("Invalid location. Try again.")
+            continue
 
         # if its valid, we dig
         safe = board.dig(row,col)
